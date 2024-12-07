@@ -1,4 +1,4 @@
-import { Box, Tab, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Tab, useMediaQuery } from "@mui/material";
 import React from "react";
 import Education from "../components/Education";
 import Experience from "../components/Experience";
@@ -12,7 +12,6 @@ import Skills from "../components/Skills";
 
 const About = () => {
   const [value, setValue] = React.useState("1");
-  const theme = useTheme();
   const isMdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   const handleChange = (event, newValue) => {
@@ -76,25 +75,21 @@ const About = () => {
           </Box>
           <TabPanel
             value="1"
-            dir={theme.direction}
           >
             <Experience />
           </TabPanel>
           <TabPanel
             value="2"
-            dir={theme.direction}
           >
             <Education />
           </TabPanel>
           <TabPanel
             value="3"
-            dir={theme.direction}
           >
             <Certificate/>
           </TabPanel>
           <TabPanel
             value="4"
-            dir={theme.direction}
           >
             <Skills/>
           </TabPanel>

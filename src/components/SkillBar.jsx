@@ -5,12 +5,13 @@ const SkillBar = (data) => {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: {xs: "flex", md:"inline-flex"},
         alignItems: "center",
         backgroundColor: "rgba(255, 255, 255, 0.12)",
-        width: "100%",
+        width: {xs: "100%", md: "49%"},
         borderRadius: "5px",
         mt: 1,
+        ml: 1
       }}
     >
       <Box
@@ -37,7 +38,7 @@ const SkillBar = (data) => {
             "& .MuiLinearProgress-bar": {
               backgroundColor: "yellow",
             },
-            backgroundColor: "#ddd",
+            backgroundColor: "#555",
           }}
         />
       </Box>
