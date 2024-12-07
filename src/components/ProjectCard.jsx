@@ -21,44 +21,65 @@ const ProjectCard = (data) => {
         maxWidth: { xs: "90vw", sm: "345px" },
         maxHeight: 400,
         bgcolor: "transparent",
-
       }}
     >
-      <CardContent sx={{ flex: '1 0 auto', display: "flex", flexDirection: "row", color: "#fff", gap: "1rem", padding: "0.5rem", backgroundColor: "#222" }}>
-      <Avatar
-            sx={{
-              bgcolor: "#fff",
-              textTransform: "uppercase",
-              color: "#000",
-            }}
-            aria-label="recipe"
-            src={data.avatar}
+      <CardContent
+        sx={{
+          flex: "1 0 auto",
+          display: "flex",
+          flexDirection: "row",
+          color: "#fff",
+          gap: "1rem",
+          padding: "0.5rem",
+          backgroundColor: "#222",
+        }}
+      >
+        <Avatar
+          sx={{
+            bgcolor: "#fff",
+            textTransform: "uppercase",
+            color: "#000",
+          }}
+          aria-label="recipe"
+          src={data.avatar}
+        >
+          {data.name.charAt(0)}
+        </Avatar>
+        <Stack flexDirection={"column"}>
+          <Typography
+            component="div"
+            variant="h5"
+            sx={{ fontSize: { xs: "0.7rem", md: "1.3rem" } }}
           >
-            {data.name.charAt(0)}
-          </Avatar>
-          <Stack flexDirection={"column"}>
-                      <Typography component="div" variant="h5" sx={{fontSize: { xs: "0.7rem", md: "1.3rem" }}}>
-           {data.name}
+            {data.name}
           </Typography>
           <Typography
             variant="subtitle1"
             component="p"
-            sx={{display: "flex", justifyContent:"space-between", gap:"1rem", alignItems: "center", color: "#d1d1d1", }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "1rem",
+              alignItems: "center",
+              color: "#d1d1d1",
+            }}
           >
             {data.date}
           </Typography>
-          </Stack>
-
-        </CardContent>
+        </Stack>
+      </CardContent>
       <CardMedia
         component="img"
         alt={data.name}
         height="140"
         image={data.media}
-        sx={{bgcolor: "#fff",}}
+        sx={{ bgcolor: "#fff" }}
       />
-      <CardContent sx={{
-            bgcolor: "#fff",}}>
+      <CardContent
+        sx={{
+          bgcolor: "#fff",
+        }}
+      >
         <Typography variant="body2" sx={{ color: "#000" }}>
           {data.description}
         </Typography>
@@ -67,6 +88,7 @@ const ProjectCard = (data) => {
         sx={{ display: "flex", justifyContent: "center", background: "#222" }}
       >
         <Button
+          target="_blank"
           variant="contained"
           href={data.github_link}
           endIcon={<GitHubIcon />}
@@ -75,6 +97,7 @@ const ProjectCard = (data) => {
           GitHub
         </Button>
         <Button
+          target="_blank"
           variant="contained"
           href={data.hosted_link}
           endIcon={<LaunchIcon />}

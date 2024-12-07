@@ -64,6 +64,24 @@ const skillData = [
         name:"Node.js",
         src:"https://img.icons8.com/color/48/000000/nodejs.png",
         progress: 70
+    },
+    {
+        id:12,
+        name:"Express.js",
+        src:"https://img.icons8.com/color/48/000000/express.png",
+        progress: 70
+    },
+    {
+        id:13,
+        name:"Material UI",
+        src:"https://img.icons8.com/color/48/000000/material-ui.png",        
+        progress: 50 
+    },
+    {
+        id:14,
+        name:"Scss",
+        src:"https://img.icons8.com/color/48/000000/sass.png",        
+        progress: 60
     }
 
 ]
