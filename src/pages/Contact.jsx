@@ -7,6 +7,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,44 +26,49 @@ const Contact = () => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required.";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required.";
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First name is required.";
+    if (!formData.lastName.trim())
+      newErrors.lastName = "Last name is required.";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Invalid email address.";
     }
-    if (!formData.comments.trim()) newErrors.comments = "Comments are required.";
+    if (!formData.comments.trim())
+      newErrors.comments = "Comments are required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    try {
-      const response = await fetch("https://formsubmit.co/abhijeetthakur7080@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
+    const serviceID = import.meta.env.VITE_APP_SERVICE_ID;
+    const templateID = import.meta.env.VITE_APP_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
+
+    const templateParams = {
+      from_name: formData.firstName + " " + formData.lastName,
+      from_email: formData.email,
+      to_name: "Abhijeet Kumar",
+      message: formData.comments,
+    };
+
+    emailjs
+      .send(serviceID, templateID, templateParams, publicKey)
+      .then((response) => {
         alert("Email sent successfully!");
         setFormData({ firstName: "", lastName: "", email: "", comments: "" });
-      } else {
+      })
+      .catch((error) => {
+        console.error("Failed to send email:", error);
         alert("Failed to send email. Please try again later.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong! Please check your internet connection.");
-    } finally {
-      setIsSubmitting(false);
-    }
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -94,7 +100,11 @@ const Contact = () => {
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="h4" color="#000" sx={{ textAlign: "center", fontWeight: 600 }}>
+        <Typography
+          variant="h4"
+          color="#000"
+          sx={{ textAlign: "center", fontWeight: 600 }}
+        >
           Contact Us
         </Typography>
         <Stack gap={"1rem"} direction={"row"}>
