@@ -50,6 +50,7 @@ const CertificateCard = (data) => {
         <Button
           variant="contained"
           href={data.link}
+          target="_blank"
           sx={{ flexGrow: 1, borderColor: "yellow", color: "yellow" }}
         >
           View certificate
