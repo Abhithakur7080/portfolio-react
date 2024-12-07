@@ -7,12 +7,12 @@ const EducationCard = (data) => {
       sx={{
         display: "flex",
         flexDirection: { xs: "column-reverse", md: "row" },
-        width: "80vw",
+        width: "100%",
         bgcolor: "#222",
         color: "#fff",
         boxShadow: "0px 0px 5px 3px rgb(50, 50, 45)",
         border: "2px solid rgb(89, 89, 65)",
-        mt: 1,
+        mt: 2,
       }}
     >
       <Box
