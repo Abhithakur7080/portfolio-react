@@ -1,112 +1,204 @@
+import React from "react";
 import {
   Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
-  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
-import React from "react";
+import { motion } from "framer-motion";
 
-const ProjectCard = (data) => {
+const ProjectCard = ({
+  name,
+  date,
+  avatar,
+  media,
+  description,
+  github_link,
+  hosted_link,
+}) => {
   return (
-    <Card
-      sx={{
-        maxWidth: { xs: "90vw", sm: "345px" },
-        maxHeight: 400,
-        bgcolor: "transparent",
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+      whileHover={{
+        scale: 1.03,
+        rotate: 0.5,
+        boxShadow: "0 12px 24px rgba(255, 215, 0, 0.25)",
+      }}
+      style={{
+        borderRadius: "20px",
+        transition: "all 0.3s ease-in-out",
+        perspective: 1000,
       }}
     >
-      <CardContent
+      <Card
         sx={{
-          flex: "1 0 auto",
+          maxWidth: { xs: "90vw", sm: "360px" },
+          height: "100%",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
+          borderRadius: "20px",
+          overflow: "hidden",
+          background: "linear-gradient(145deg, #1b1b1b, #121212)",
+          border: "1px solid rgba(255, 215, 0, 0.15)",
+          backdropFilter: "blur(8px)",
+          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
           color: "#fff",
-          gap: "1rem",
-          padding: "0.5rem",
-          backgroundColor: "#222",
         }}
       >
-        <Avatar
+        {/* Header */}
+        <CardContent
           sx={{
-            bgcolor: "#fff",
-            textTransform: "uppercase",
-            color: "#000",
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            py: 2,
+            px: 3,
+            bgcolor: "transparent",
           }}
-          aria-label="recipe"
-          src={data.avatar}
         >
-          {data.name.charAt(0)}
-        </Avatar>
-        <Stack flexDirection={"column"}>
-          <Typography
-            component="div"
-            variant="h5"
-            sx={{ fontSize: { xs: "0.7rem", md: "1.3rem" } }}
-          >
-            {data.name}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            component="p"
+          <Avatar
+            src={avatar}
+            alt={name}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "1rem",
-              alignItems: "center",
-              color: "#d1d1d1",
+              bgcolor: "#fff",
+              color: "#000",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              border: "2px solid #ffd700",
             }}
           >
-            {data.date}
+            {name?.charAt(0)}
+          </Avatar>
+          <Stack>
+            <Typography
+              component="div"
+              variant="h6"
+              sx={{
+                fontSize: "1.1rem",
+                fontWeight: 600,
+                color: "#ffd700",
+              }}
+            >
+              {name}
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{
+                color: "#ccc",
+                fontSize: "0.75rem",
+              }}
+            >
+              {date}
+            </Typography>
+          </Stack>
+        </CardContent>
+
+        {/* Image */}
+        <motion.div whileHover={{ scale: 1.015 }}>
+          <CardMedia
+            component="img"
+            height="180"
+            image={media}
+            alt={name}
+            sx={{
+              objectFit: "cover",
+              borderTop: "2px solid #ffd700",
+              borderBottom: "2px solid #ffd700",
+              filter: "brightness(0.95)",
+            }}
+          />
+        </motion.div>
+
+        {/* Description */}
+        <CardContent
+          sx={{
+            flexGrow: 1,
+            px: 3,
+            py: 2,
+            bgcolor: "rgba(255,255,255,0.03)",
+            borderTop: "1px solid rgba(255,255,255,0.05)",
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#ddd",
+              fontSize: "0.9rem",
+              fontWeight: 400,
+              lineHeight: 1.5,
+            }}
+          >
+            {description}
           </Typography>
-        </Stack>
-      </CardContent>
-      <CardMedia
-        component="img"
-        alt={data.name}
-        height="140"
-        image={data.media}
-        sx={{ bgcolor: "#fff" }}
-      />
-      <CardContent
-        sx={{
-          bgcolor: "#fff",
-        }}
-      >
-        <Typography variant="body2" sx={{ color: "#000" }}>
-          {data.description}
-        </Typography>
-      </CardContent>
-      <CardActions
-        sx={{ display: "flex", justifyContent: "center", background: "#222" }}
-      >
-        <Button
-          target="_blank"
-          variant="contained"
-          href={data.github_link}
-          endIcon={<GitHubIcon />}
-          sx={{ flexGrow: 1, borderColor: "yellow", color: "yellow" }}
+        </CardContent>
+
+        {/* Buttons */}
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            px: 2,
+            pb: 2,
+            pt: 1,
+            gap: 1,
+          }}
         >
-          GitHub
-        </Button>
-        <Button
-          target="_blank"
-          variant="contained"
-          href={data.hosted_link}
-          endIcon={<LaunchIcon />}
-          sx={{ flexGrow: 1, borderColor: "yellow", color: "yellow" }}
-        >
-          Visit
-        </Button>
-      </CardActions>
-    </Card>
+          <Button
+            target="_blank"
+            href={github_link}
+            endIcon={<GitHubIcon />}
+            sx={{
+              flex: 1,
+              border: "2px solid #ffd700",
+              color: "#ffd700",
+              fontWeight: 600,
+              borderRadius: "25px",
+              fontSize: "0.8rem",
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: "#ffd700",
+                color: "#000",
+                boxShadow: "0 4px 14px rgba(255, 215, 0, 0.5)",
+                transform: "translateY(-2px)",
+              },
+            }}
+          >
+            GitHub
+          </Button>
+          <Button
+            target="_blank"
+            href={hosted_link}
+            endIcon={<LaunchIcon />}
+            sx={{
+              flex: 1,
+              border: "2px solid #ffd700",
+              color: "#ffd700",
+              fontWeight: 600,
+              borderRadius: "25px",
+              fontSize: "0.8rem",
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: "#ffd700",
+                color: "#000",
+                boxShadow: "0 4px 14px rgba(255, 215, 0, 0.5)",
+                transform: "translateY(-2px)",
+              },
+            }}
+          >
+            Visit
+          </Button>
+        </CardActions>
+      </Card>
+    </motion.div>
   );
 };
 

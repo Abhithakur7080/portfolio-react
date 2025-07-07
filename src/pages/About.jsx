@@ -1,100 +1,70 @@
-import { Box, Tab, useMediaQuery } from "@mui/material";
 import React from "react";
-import Education from "../components/Education";
-import Experience from "../components/Experience";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import SchoolIcon from '@mui/icons-material/School';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import Certificate from "../components/Certificate";
-import Skills from "../components/Skills";
+import { Box, Typography, Stack, Avatar } from "@mui/material";
+import profilePic from "../assets/profile.png";
 
 const About = () => {
-  const [value, setValue] = React.useState("1");
-  const isMdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   return (
     <Box
-      width={"100%"}
+      width="100%"
+      px={{ xs: 2, sm: 4 }}
+      py={6}
       sx={{
-        height: { xs: "calc(100vh - 54px)", sm: "calc(100vh - 64px)" },
+        backgroundColor: "#111",
+        color: "#fff",
         overflowY: "auto",
-        scrollbarWidth: "none",
-        "&::-webkit-scrollbar": { display: "none" },
       }}
+      id="about"
     >
-      <Box sx={{ width: "100%", height: "100%", typography: "body1" }}>
-        <TabContext value={value}>
-          <Box
+      <Typography
+        variant="h3"
+        sx={{
+          textAlign: "center",
+          fontWeight: "bold",
+          mb: 6,
+          color: "#ffd700",
+          textShadow: "0 1px 6px rgba(255,215,0,0.5)",
+          letterSpacing: 1,
+        }}
+      >
+       Know more About Me
+      </Typography>
+
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={6}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {/* Profile Image */}
+        <Box>
+          <Avatar
+            src={profilePic}
+            alt="Abhijeet Kumar"
             sx={{
-              borderBottom: 1,
-              borderColor: "#222",
-              backgroundColor: "#222",
+              width: { xs: 160, sm: 220, md: 260 },
+              height: { xs: 160, sm: 220, md: 260 },
+              border: "4px solid #ffd700",
+              boxShadow: "0 8px 20px rgba(255,255,255,0.2)",
+            }}
+          />
+        </Box>
+
+        {/* About Description */}
+        <Box maxWidth="600px">
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "1.1rem",
+              lineHeight: 1.8,
+              color: "#ccc",
             }}
           >
-            <TabList
-            centered={!isMdUp}
-              onChange={handleChange}
-              aria-label="lab API tabs example"
-              sx={{
-                "& .Mui-selected": {
-                  color: "#000",
-                  backgroundColor: "yellow",
-                },
-              }}
-            >
-              <Tab
-                label={isMdUp ? "Experience" : ""}
-                value="1"
-                sx={{color: "#fff"}}
-                icon={<EngineeringIcon />}
-              />
-              <Tab
-                label={isMdUp ? "Education" : ""}
-                value="2"
-                sx={{color: "#fff"}}
-                icon={<SchoolIcon />}
-              />
-              <Tab
-                label={isMdUp ? "Certificates" : ""}
-                value="3"
-                sx={{color: "#fff"}}
-                icon={<WorkspacePremiumIcon />}
-              />
-              <Tab
-                label={isMdUp ? "Skills" : ""}
-                value="4"
-                sx={{color: "#fff"}}
-                icon={<LeaderboardIcon />}
-              />
-            </TabList>
-          </Box>
-          <TabPanel
-            value="1"
-          >
-            <Experience />
-          </TabPanel>
-          <TabPanel
-            value="2"
-          >
-            <Education />
-          </TabPanel>
-          <TabPanel
-            value="3"
-          >
-            <Certificate/>
-          </TabPanel>
-          <TabPanel
-            value="4"
-          >
-            <Skills/>
-          </TabPanel>
-        </TabContext>
-      </Box>
+            I’m <strong>Abhijeet Kumar</strong>, a passionate Full Stack Developer with <strong>1.5 years of experience</strong> in building responsive and scalable web applications using <strong>React.js</strong>, <strong>Node.js</strong>, <strong>MongoDB</strong>, and more.  
+            <br /><br />
+            I love transforming ideas into real-world solutions with elegant UIs, secure backends, and optimized performance. My goal is to create meaningful digital products and keep growing every day as a developer.
+          </Typography>
+        </Box>
+      </Stack>
     </Box>
   );
 };

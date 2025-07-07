@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
+import {
+  Box,
+  Stack,
+  TextField,
+  Typography,
+  Button,
+  IconButton,
+  Divider,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
-import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +28,16 @@ const Contact = () => {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleSnackbarClose = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -60,149 +79,240 @@ const Contact = () => {
 
     emailjs
       .send(serviceID, templateID, templateParams, publicKey)
-      .then((response) => {
-        alert("Email sent successfully!");
-        setFormData({ firstName: "", lastName: "", email: "", comments: "" });
+      .then(() => {
+        setSnackbar({
+          open: true,
+          message: "Email sent successfully!",
+          severity: "success",
+        });
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          comments: "",
+        });
       })
       .catch((error) => {
         console.error("Failed to send email:", error);
-        alert("Failed to send email. Please try again later.");
+        setSnackbar({
+          open: true,
+          message: "Failed to send email. Please try again later.",
+          severity: "error",
+        });
       })
       .finally(() => setIsSubmitting(false));
   };
 
+  const inputStyles = {
+    input: { color: "#fff" },
+    label: { color: "#aaa" },
+    "& .MuiInputLabel-root": {
+      color: "#aaa",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#ffd700",
+    },
+    "& .MuiFilledInput-root": {
+      backgroundColor: "rgba(255,255,255,0.05)",
+      "&:hover": {
+        backgroundColor: "rgba(255,255,255,0.08)",
+      },
+      "&.Mui-focused": {
+        backgroundColor: "rgba(255,255,255,0.1)",
+      },
+    },
+  };
+
   return (
     <Box
+      id="contact"
       sx={{
-        height: {
-          xs: "calc(100vh - 54px)",
-          sm: "calc(100vh - 64px)",
-        },
+        minHeight: "100vh",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         flexDirection: "column",
-        gap: "1rem",
-        backgroundColor: "transparent",
+        alignItems: "center",
+        justifyContent: "center",
+        px: 2,
+        py: 6,
       }}
     >
-      <Stack
-        component="form"
-        onSubmit={handleSubmit}
-        justifyContent={"center"}
-        gap={"1rem"}
-        sx={{
-          backgroundColor: "#fff",
-          maxWidth: { xs: "90vw", sm: "500px" },
-          width: "100%",
-          padding: "2rem",
-          borderRadius: "10px",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-        }}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
       >
         <Typography
-          variant="h4"
-          color="#000"
-          sx={{ textAlign: "center", fontWeight: 600 }}
+          variant="h3"
+          sx={{
+            color: "#ffd700",
+            fontWeight: "bold",
+            textShadow: "0 2px 8px rgba(255, 215, 0, 0.3)",
+            mb: 3,
+            textAlign: "center",
+          }}
         >
-          Contact Us
+          Let's Connect
         </Typography>
-        <Stack gap={"1rem"} direction={"row"}>
-          <TextField
-            id="firstName"
-            label="First Name"
-            value={formData.firstName}
-            onChange={handleChange}
-            error={!!errors.firstName}
-            helperText={errors.firstName}
-            fullWidth
-          />
-          <TextField
-            id="lastName"
-            label="Last Name"
-            value={formData.lastName}
-            onChange={handleChange}
-            error={!!errors.lastName}
-            helperText={errors.lastName}
-            fullWidth
-          />
-        </Stack>
-        <TextField
-          id="email"
-          label="Email"
-          value={formData.email}
-          onChange={handleChange}
-          error={!!errors.email}
-          helperText={errors.email}
-          fullWidth
-        />
-        <TextField
-          id="comments"
-          label="Comments"
-          multiline
-          rows={4}
-          value={formData.comments}
-          onChange={handleChange}
-          error={!!errors.comments}
-          helperText={errors.comments}
-          fullWidth
-          variant="outlined"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={isSubmitting}
-          sx={{ padding: "0.8rem", fontSize: "1rem", fontWeight: "600" }}
-        >
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </Button>
-      </Stack>
-      <Typography variant="body1" color="#fff" sx={{ textAlign: "center" }}>
-        Know more about me. Visit my{" "}
-        <Link to="/about" style={{ color: "yellow" }}>
-          About
-        </Link>{" "}
-        section.
-      </Typography>
-      <Stack
-        direction={"row"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        gap={"1rem"}
+      </motion.div>
+
+      <motion.div
+        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
       >
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            backdropFilter: "blur(12px)",
+            background: "rgba(255,255,255,0.05)",
+            borderRadius: "16px",
+            padding: "2rem",
+            width: "100%",
+            maxWidth: 520,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            border: "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          <Stack direction="row" spacing={2}>
+            <TextField
+              id="firstName"
+              label="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              error={!!errors.firstName}
+              helperText={errors.firstName}
+              fullWidth
+              variant="filled"
+              sx={inputStyles}
+            />
+            <TextField
+              id="lastName"
+              label="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              error={!!errors.lastName}
+              helperText={errors.lastName}
+              fullWidth
+              variant="filled"
+              sx={inputStyles}
+            />
+          </Stack>
+
+          <TextField
+            id="email"
+            label="Email"
+            value={formData.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            fullWidth
+            variant="filled"
+            sx={inputStyles}
+          />
+
+          <TextField
+            id="comments"
+            label="Message"
+            multiline
+            rows={4}
+            value={formData.comments}
+            onChange={handleChange}
+            error={!!errors.comments}
+            helperText={errors.comments}
+            fullWidth
+            variant="filled"
+            sx={{
+              ...inputStyles,
+              textarea: { color: "#fff" },
+            }}
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isSubmitting}
+            sx={{
+              backgroundColor: "#ffd700",
+              color: "#000",
+              fontWeight: "bold",
+              "&:hover": {
+                backgroundColor: "#e6c200",
+              },
+            }}
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </Button>
+        </Box>
+      </motion.div>
+
+      <Divider
+        sx={{
+          my: 4,
+          width: "100%",
+          maxWidth: 480,
+          borderColor: "rgba(255,255,255,0.2)",
+        }}
+      />
+
+      <Typography variant="body1" sx={{ color: "#fff", mb: 1 }}>
+        You can also reach me here:
+      </Typography>
+
+      <Stack direction="row" spacing={2} justifyContent="center">
         <IconButton
-          aria-label="github"
           href="https://github.com/Abhithakur7080"
           target="_blank"
+          sx={{ color: "#fff" }}
         >
-          <GitHubIcon sx={{ color: "#fff" }} />
+          <GitHubIcon />
         </IconButton>
         <IconButton
-          aria-label="linkedin"
           href="https://www.linkedin.com/in/abhijeet-kumar-39800320b/"
           target="_blank"
+          sx={{ color: "#0a66c2" }}
         >
-          <LinkedInIcon sx={{ color: "#0072b1" }} />
+          <LinkedInIcon />
         </IconButton>
         <IconButton
-          aria-label="whatsapp"
           href="https://api.whatsapp.com/send?phone=916200431323&text=Hello,%20Abhijeet%20I%20want%20to%20connect%20with%20you."
           target="_blank"
+          sx={{ color: "#25D366" }}
         >
-          <WhatsAppIcon sx={{ color: "#25D366" }} />
+          <WhatsAppIcon />
         </IconButton>
         <IconButton
-          aria-label="mail"
           href="mailto:abhijeetthakur7080@gmail.com"
           target="_blank"
+          sx={{ color: "#c71610" }}
         >
-          <EmailIcon sx={{ color: "#c71610" }} />
+          <EmailIcon />
         </IconButton>
-        <IconButton aria-label="phone" href="tel:+916200431323" target="_blank">
-          <PhoneInTalkIcon sx={{ color: "#4CAF50" }} />
+        <IconButton href="tel:+916200431323" sx={{ color: "#4CAF50" }}>
+          <PhoneInTalkIcon />
         </IconButton>
       </Stack>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbar.severity}
+          sx={{ width: "100%" }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

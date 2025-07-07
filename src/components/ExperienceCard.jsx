@@ -1,57 +1,80 @@
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography, Stack, Avatar, Paper } from "@mui/material";
+import { motion } from "framer-motion";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline"; // 🧩 Import the icon
 
-const ExperienceCard = (data) => {
+const ExperienceCard = ({ data, reverse }) => {
   return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column-reverse", md: "row" },
-        width: "100%",
-        bgcolor: "#222",
-        color: "#fff",
-        boxShadow: "0px 0px 5px 3px rgb(50, 50, 45)",
-        border: "2px solid rgb(89, 89, 65)",
-        mt: 2,
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          borderRight: "2px solid rgb(89, 89, 65)",
-        }}
+      <Stack
+        direction={{ xs: "column", md: reverse ? "row-reverse" : "row" }}
+        spacing={4}
+        alignItems="center"
       >
-        <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h5">
-            {data.comapany_name}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            component="div"
+        {/* Logo */}
+        <Avatar
+          src={data.logo}
+          alt={data.company_name}
+          variant="rounded"
+          sx={{
+            width: { xs: 120, md: 160 },
+            height: { xs: 120, md: 160 },
+            bgcolor: "#fff",
+            boxShadow: "0 8px 20px rgba(255,255,255,0.1)",
+            border: "3px solid #ffd700",
+          }}
+        />
+
+        {/* Content */}
+        <Paper
+          elevation={3}
+          sx={{
+            p: 3,
+            maxWidth: 600,
+            bgcolor: "#1e1e1e",
+            border: "1px solid #333",
+            borderRadius: 3,
+            position: "relative", // for absolute icon
+          }}
+        >
+          {/* Icon on top-left */}
+          <Box
             sx={{
+              position: "absolute",
+              top: -20,
+              left: -20,
+              bgcolor: "#ffd700",
+              borderRadius: "50%",
+              padding: "8px",
               display: "flex",
-              justifyContent: "space-between",
-              gap: "1rem",
               alignItems: "center",
-              color: "yellow",
+              justifyContent: "center",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
             }}
           >
-            {data.specialization}
-            <Typography color="green">{data.duration}</Typography>
+            <WorkOutlineIcon sx={{ color: "#000", fontSize: 28 }} />
+          </Box>
+
+          <Typography variant="h6" sx={{ color: "#ffd700", fontWeight: "bold" }}>
+            {data.company_name}
           </Typography>
-        </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          <Typography>{data.description}</Typography>
-        </Box>
-      </Box>
-      <CardMedia
-        component="img"
-        sx={{ width: { xs: "100%", md: "151px" } }}
-        image={data.logo}
-        alt={data.institute}
-      />
-    </Card>
+          <Typography variant="subtitle1" sx={{ color: "#ccc", mb: 1 }}>
+            {data.specialization}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#aaa", mb: 2 }}>
+            {data.description}
+          </Typography>
+          <Typography variant="caption" sx={{ color: "lightgreen", fontWeight: 500 }}>
+            Duration: {data.duration}
+          </Typography>
+        </Paper>
+      </Stack>
+    </motion.div>
   );
 };
 
