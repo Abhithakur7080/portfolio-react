@@ -41,15 +41,15 @@ export const projectsData = [
   {
     id: 4,
     avatar:
-      "https://github.com/Abhithakur7080/Google-keep-clone/blob/main/src/assets/icon.png?raw=true",
-    name: "Keep Clone",
+      "https://github.com/user-attachments/assets/7454a855-947a-45fb-9ac5-b9167c1086b3",
+    name: "Strimzilla",
     date: "Jun 18, 2024",
     description:
       "This project is clone of Google Mail, built by using React.js, Redux-Toolkit, Context API, Firebase, and Material UI to provide users add and store her todos.",
     media:
-      "https://github.com/Abhithakur7080/shopie/assets/119639453/58d731ef-b8ba-4cbc-8f76-c331040dc928",
-    hosted_link: "https://google-keep-clone-eta-ten.vercel.app/",
-    github_link: "https://github.com/Abhithakur7080/Google-keep-clone",
+      "https://github.com/user-attachments/assets/d727a6fd-432d-432e-aa67-f89f0ca60a04",
+    hosted_link: "https://streamzilla.vercel.app/",
+    github_link: "https://github.com/Abhithakur7080/Streamzilla",
   },
   {
     id: 5,
@@ -80,15 +80,15 @@ export const projectsData = [
   {
     id: 7,
     avatar:
-      "https://github.com/Abhithakur7080/Jop-portal/blob/main/public/Senza-titolo-1.png?raw=true",
-    name: "Job Portal",
-    date: "May 28, 2024",
+      "https://github.com/user-attachments/assets/d12f3bf4-6651-4501-be60-0272801b3b10",
+    name: "Book store",
+    date: "on process",
     description:
-      "This project provides users with a seamless Jop experience where users can apply the job and also recuritor can post her job and also track her candidate details.",
+      "This is a full-stack Book Store web application built using the MERN stack. It supports secure user authentication, Stripe payments, and an intuitive UI for users to browse, purchase, and manage books online.",
     media:
-      "https://github.com/user-attachments/assets/f2adddbc-1082-4840-9faa-6a3140a8fd67",
-    hosted_link: "https://pizzahub-qaym.onrender.com/",
-    github_link: "https://github.com/Abhithakur7080/pizzahub",
+      "https://github.com/user-attachments/assets/a5a65abf-15c2-48ce-bcc7-51d0330f0bfb",
+    hosted_link: "https://bookstore-1-f5z3.onrender.com",
+    github_link: "https://github.com/Abhithakur7080/bookstore",
   },
   {
     id: 8,

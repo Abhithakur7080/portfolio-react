@@ -108,6 +108,7 @@ const ProjectCard = ({
             component="img"
             height="180"
             image={media}
+            loading="lazy"
             alt={name}
             sx={{
               objectFit: "cover",
