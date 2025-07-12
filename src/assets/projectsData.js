@@ -45,7 +45,7 @@ export const projectsData = [
     name: "Strimzilla",
     date: "Jun 18, 2024",
     description:
-      "This project is clone of Google Mail, built by using React.js, Redux-Toolkit, Context API, Firebase, and Material UI to provide users add and store her todos.",
+      "This project is built using React.js, Redux-Toolkit, Context API, and Tailwind CSS to provide users with a seamless Entertainment experience.",
     media:
       "https://github.com/user-attachments/assets/d727a6fd-432d-432e-aa67-f89f0ca60a04",
     hosted_link: "https://streamzilla.vercel.app/",
